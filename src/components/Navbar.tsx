@@ -22,7 +22,7 @@ const Navbar = () => {
       <div className="container flex items-center justify-between h-16 md:h-20">
         <Link to="/" className="flex items-center gap-2">
           <span className="text-2xl md:text-3xl font-heading font-bold text-primary">
-            Vastra
+            Amma
           </span>
           <span className="text-xs font-body text-muted-foreground tracking-widest uppercase hidden sm:block">
             Sarees

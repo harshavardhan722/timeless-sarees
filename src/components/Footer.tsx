@@ -5,7 +5,7 @@ const Footer = () => (
     <div className="container py-12">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         <div>
-          <h3 className="text-2xl font-heading font-bold mb-3">Vastra</h3>
+          <h3 className="text-2xl font-heading font-bold mb-3">Amma</h3>
           <p className="text-primary-foreground/70 text-sm font-body leading-relaxed">
             Curating the finest handloom and designer sarees from across India.
             Every weave tells a story.
@@ -22,14 +22,14 @@ const Footer = () => (
         <div>
           <h4 className="font-heading font-semibold mb-3">Contact</h4>
           <div className="flex flex-col gap-2 text-sm text-primary-foreground/70">
-            <p>info@vastrasarees.com</p>
+            <p>info@ammasarees.com</p>
             <p>+91 98765 43210</p>
             <p>Mumbai, India</p>
           </div>
         </div>
       </div>
       <div className="border-t border-primary-foreground/20 mt-8 pt-6 text-center text-xs text-primary-foreground/50">
-        © 2026 Vastra Sarees. All rights reserved.
+        © 2026 Amma Sarees. All rights reserved.
       </div>
     </div>
   </footer>
