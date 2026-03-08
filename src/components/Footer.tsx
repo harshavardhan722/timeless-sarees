@@ -22,7 +22,7 @@ const Footer = () => (
         <div>
           <h4 className="font-heading font-semibold mb-3">Contact</h4>
           <div className="flex flex-col gap-2 text-sm text-primary-foreground/70">
-            <p>info@vastrasarees.com</p>
+            <p>info@ammasarees.com</p>
             <p>+91 98765 43210</p>
             <p>Mumbai, India</p>
           </div>
