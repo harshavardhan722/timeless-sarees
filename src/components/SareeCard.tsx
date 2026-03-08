@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Saree } from "@/data/sarees";
+import { Saree } from "@/hooks/useSarees";
 import { Badge } from "@/components/ui/badge";
 
 interface SareeCardProps {
@@ -10,10 +10,7 @@ const SareeCard = ({ saree }: SareeCardProps) => {
   const inStock = saree.stock > 0;
 
   return (
-    <Link
-      to={`/saree/${saree.id}`}
-      className="group block animate-fade-in"
-    >
+    <Link to={`/saree/${saree.id}`} className="group block animate-fade-in">
       <div className="relative overflow-hidden rounded-lg bg-cream aspect-[3/4] shadow-card">
         <img
           src={saree.images[0]}
