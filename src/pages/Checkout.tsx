@@ -66,16 +66,15 @@ Payment Method: Cash on Delivery`;
           price: saree.price * quantity,
         })),
       });
+      const confirmState = { customerName: form.name, totalPrice, itemCount: items.reduce((s, i) => s + i.quantity, 0) };
       clearCart();
       window.open(whatsappUrl, "_blank");
-      toast.success("Order placed! Redirecting to WhatsApp...");
-      navigate("/");
+      navigate("/order-confirmation", { state: confirmState, replace: true });
     } catch {
-      // Still open WhatsApp even if DB save fails
-      window.open(whatsappUrl, "_blank");
-      toast.success("Redirecting to WhatsApp...");
+      const confirmState = { customerName: form.name, totalPrice, itemCount: items.reduce((s, i) => s + i.quantity, 0) };
       clearCart();
-      navigate("/");
+      window.open(whatsappUrl, "_blank");
+      navigate("/order-confirmation", { state: confirmState, replace: true });
     }
   };
 

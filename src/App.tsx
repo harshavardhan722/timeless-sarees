@@ -34,6 +34,7 @@ const App = () => (
                 <Route path="/saree/:id" element={<SareeDetail />} />
                 <Route path="/cart" element={<Cart />} />
                 <Route path="/checkout" element={<Checkout />} />
+                <Route path="/order-confirmation" element={<OrderConfirmation />} />
                 <Route path="/admin" element={<Admin />} />
                 <Route path="/auth" element={<Auth />} />
                 <Route path="*" element={<NotFound />} />
