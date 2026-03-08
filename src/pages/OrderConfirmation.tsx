@@ -50,8 +50,10 @@ const OrderConfirmation = () => {
         </p>
 
         <div className="flex flex-col gap-3 pt-2">
-          <Button onClick={() => window.open("https://wa.me/918910081722", "_blank")} className="rounded-full font-body gap-2">
-            <MessageCircle className="w-4 h-4" /> Chat on WhatsApp
+          <Button asChild className="rounded-full font-body gap-2">
+            <a href={state.whatsappUrl} target="_blank" rel="noopener noreferrer">
+              <MessageCircle className="w-4 h-4" /> Send Order on WhatsApp
+            </a>
           </Button>
           <Button variant="outline" onClick={() => navigate("/sarees")} className="rounded-full font-body gap-2">
             <ShoppingBag className="w-4 h-4" /> Continue Shopping
