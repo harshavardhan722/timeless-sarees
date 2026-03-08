@@ -29,7 +29,7 @@ const Footer = () => (
         </div>
       </div>
       <div className="border-t border-primary-foreground/20 mt-8 pt-6 text-center text-xs text-primary-foreground/50">
-        © 2026 Vastra Sarees. All rights reserved.
+        © 2026 Amma Sarees. All rights reserved.
       </div>
     </div>
   </footer>
