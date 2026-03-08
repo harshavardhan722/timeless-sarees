@@ -24,6 +24,7 @@ const emptyForm = {
 };
 
 const Admin = () => {
+  const { user, loading: authLoading, signOut } = useAuth();
   const { data: sarees, isLoading } = useSarees();
   const createSaree = useCreateSaree();
   const updateSaree = useUpdateSaree();
@@ -32,6 +33,14 @@ const Admin = () => {
   const [form, setForm] = useState(emptyForm);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [dialogOpen, setDialogOpen] = useState(false);
+
+  if (authLoading) {
+    return <div className="flex items-center justify-center min-h-[60vh] text-muted-foreground">Loading...</div>;
+  }
+
+  if (!user) {
+    return <Navigate to="/auth" replace />;
+  }
 
   const update = (field: string, value: string | boolean) =>
     setForm((prev) => ({ ...prev, [field]: value }));
