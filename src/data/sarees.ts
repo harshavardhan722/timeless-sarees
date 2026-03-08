@@ -19,7 +19,7 @@ export interface Saree {
   createdAt: string;
 }
 
-export const FABRICS = ["Silk", "Banarasi", "Chiffon", "Cotton", "Kanjeevaram", "Georgette"];
+export const FABRICS = ["Silk", "Banarasi", "Chiffon", "Cotton", "Kanjeevaram", "Georgette", "Softskill", "Dola Silk", "Lenin Cotton", "Poornam", "Crape Silk", "Mysore Silk", "Semi Venkatagiri"];
 export const COLORS = ["Maroon", "Blue", "Pink", "Green", "Purple", "Yellow", "Red", "Orange"];
 export const OCCASIONS = ["Wedding", "Festival", "Party", "Casual", "Office", "Bridal"];
 
