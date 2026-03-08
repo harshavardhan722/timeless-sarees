@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { mockSarees, Saree, FABRICS, COLORS, OCCASIONS } from "@/data/sarees";
+import { useSarees, useCreateSaree, useUpdateSaree, useDeleteSaree, FABRICS, COLORS, OCCASIONS } from "@/hooks/useSarees";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -18,11 +18,15 @@ const emptyForm = {
   color: "Maroon",
   occasion: "Wedding",
   stock: "",
-  blousePiece: true,
+  blouse_piece: true,
 };
 
 const Admin = () => {
-  const [sarees, setSarees] = useState<Saree[]>(mockSarees);
+  const { data: sarees, isLoading } = useSarees();
+  const createSaree = useCreateSaree();
+  const updateSaree = useUpdateSaree();
+  const deleteSaree = useDeleteSaree();
+
   const [form, setForm] = useState(emptyForm);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -30,55 +34,49 @@ const Admin = () => {
   const update = (field: string, value: string | boolean) =>
     setForm((prev) => ({ ...prev, [field]: value }));
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (!form.name || !form.price || !form.stock) {
       toast.error("Please fill in required fields");
       return;
     }
 
-    if (editingId) {
-      setSarees((prev) =>
-        prev.map((s) =>
-          s.id === editingId
-            ? {
-                ...s,
-                name: form.name,
-                price: Number(form.price),
-                description: form.description,
-                fabric: form.fabric,
-                color: form.color,
-                occasion: form.occasion,
-                stock: Number(form.stock),
-                blousePiece: form.blousePiece,
-              }
-            : s
-        )
-      );
-      toast.success("Saree updated!");
-    } else {
-      const newSaree: Saree = {
-        id: String(Date.now()),
-        name: form.name,
-        price: Number(form.price),
-        description: form.description,
-        fabric: form.fabric,
-        color: form.color,
-        occasion: form.occasion,
-        stock: Number(form.stock),
-        blousePiece: form.blousePiece,
-        images: [sarees[0]?.images[0] || ""],
-        createdAt: new Date().toISOString().split("T")[0],
-      };
-      setSarees((prev) => [newSaree, ...prev]);
-      toast.success("Saree added!");
+    try {
+      if (editingId) {
+        await updateSaree.mutateAsync({
+          id: editingId,
+          name: form.name,
+          price: Number(form.price),
+          description: form.description,
+          fabric: form.fabric,
+          color: form.color,
+          occasion: form.occasion,
+          stock: Number(form.stock),
+          blouse_piece: form.blouse_piece,
+        });
+        toast.success("Saree updated!");
+      } else {
+        await createSaree.mutateAsync({
+          name: form.name,
+          price: Number(form.price),
+          description: form.description,
+          fabric: form.fabric,
+          color: form.color,
+          occasion: form.occasion,
+          stock: Number(form.stock),
+          blouse_piece: form.blouse_piece,
+          images: ["/saree-1.jpg"],
+        });
+        toast.success("Saree added!");
+      }
+      setForm(emptyForm);
+      setEditingId(null);
+      setDialogOpen(false);
+    } catch {
+      toast.error("Something went wrong");
     }
-
-    setForm(emptyForm);
-    setEditingId(null);
-    setDialogOpen(false);
   };
 
-  const handleEdit = (saree: Saree) => {
+  const handleEdit = (saree: any) => {
     setForm({
       name: saree.name,
       price: String(saree.price),
@@ -87,15 +85,19 @@ const Admin = () => {
       color: saree.color,
       occasion: saree.occasion,
       stock: String(saree.stock),
-      blousePiece: saree.blousePiece,
+      blouse_piece: saree.blouse_piece,
     });
     setEditingId(saree.id);
     setDialogOpen(true);
   };
 
-  const handleDelete = (id: string) => {
-    setSarees((prev) => prev.filter((s) => s.id !== id));
-    toast.success("Saree deleted");
+  const handleDelete = async (id: string) => {
+    try {
+      await deleteSaree.mutateAsync(id);
+      toast.success("Saree deleted");
+    } catch {
+      toast.error("Failed to delete");
+    }
   };
 
   const openNew = () => {
@@ -175,9 +177,9 @@ const Admin = () => {
               </div>
               <div className="flex items-center justify-between">
                 <Label className="text-sm font-body">Blouse Piece Included</Label>
-                <Switch checked={form.blousePiece} onCheckedChange={(v) => update("blousePiece", v)} />
+                <Switch checked={form.blouse_piece} onCheckedChange={(v) => update("blouse_piece", v)} />
               </div>
-              <Button onClick={handleSave} className="w-full rounded-full font-body">
+              <Button onClick={handleSave} className="w-full rounded-full font-body" disabled={createSaree.isPending || updateSaree.isPending}>
                 {editingId ? "Update Saree" : "Add Saree"}
               </Button>
             </div>
@@ -185,7 +187,6 @@ const Admin = () => {
         </Dialog>
       </div>
 
-      {/* Saree table */}
       <div className="border rounded-lg overflow-hidden bg-card shadow-card">
         <div className="overflow-x-auto">
           <table className="w-full text-sm font-body">
@@ -200,7 +201,9 @@ const Admin = () => {
               </tr>
             </thead>
             <tbody>
-              {sarees.map((saree) => (
+              {isLoading ? (
+                <tr><td colSpan={6} className="p-8 text-center text-muted-foreground">Loading...</td></tr>
+              ) : (sarees || []).map((saree) => (
                 <tr key={saree.id} className="border-b last:border-0 hover:bg-muted/30 transition-colors">
                   <td className="p-3">
                     <img src={saree.images[0]} alt={saree.name} className="w-12 h-16 object-cover rounded" />

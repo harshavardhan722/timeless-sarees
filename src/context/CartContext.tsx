@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, ReactNode } from "react";
-import { Saree } from "@/data/sarees";
+import { Saree } from "@/hooks/useSarees";
 
 export interface CartItem {
   saree: Saree;

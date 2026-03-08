@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
-import { mockSarees, FABRICS, COLORS, OCCASIONS } from "@/data/sarees";
+import { useSarees, FABRICS, COLORS, OCCASIONS } from "@/hooks/useSarees";
 import SareeCard from "@/components/SareeCard";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
@@ -20,6 +20,8 @@ const SareeListing = () => {
   const [searchParams] = useSearchParams();
   const initialOccasion = searchParams.get("occasion") || "";
 
+  const { data: sarees, isLoading } = useSarees();
+
   const [fabric, setFabric] = useState("");
   const [color, setColor] = useState("");
   const [occasion, setOccasion] = useState(initialOccasion);
@@ -27,7 +29,7 @@ const SareeListing = () => {
   const [search, setSearch] = useState("");
 
   const filtered = useMemo(() => {
-    return mockSarees.filter((s) => {
+    return (sarees || []).filter((s) => {
       if (fabric && s.fabric !== fabric) return false;
       if (color && s.color !== color) return false;
       if (occasion && s.occasion !== occasion) return false;
@@ -36,7 +38,7 @@ const SareeListing = () => {
       if (search && !s.name.toLowerCase().includes(search.toLowerCase())) return false;
       return true;
     });
-  }, [fabric, color, occasion, priceRange, search]);
+  }, [sarees, fabric, color, occasion, priceRange, search]);
 
   const hasFilters = fabric || color || occasion || priceRange > 0 || search;
 
@@ -109,10 +111,9 @@ const SareeListing = () => {
         <div>
           <h1 className="text-2xl md:text-3xl font-heading font-bold">Our Sarees</h1>
           <p className="text-sm text-muted-foreground font-body mt-1">
-            {filtered.length} saree{filtered.length !== 1 ? "s" : ""} found
+            {isLoading ? "Loading..." : `${filtered.length} saree${filtered.length !== 1 ? "s" : ""} found`}
           </p>
         </div>
-        {/* Mobile filter button */}
         <Sheet>
           <SheetTrigger asChild>
             <Button variant="outline" size="sm" className="md:hidden gap-2 font-body">
@@ -131,7 +132,6 @@ const SareeListing = () => {
       </div>
 
       <div className="flex gap-8">
-        {/* Desktop sidebar filters */}
         <aside className="hidden md:block w-56 shrink-0">
           <h3 className="font-heading font-semibold mb-4 text-sm text-muted-foreground uppercase tracking-wider">
             Filters
@@ -139,9 +139,14 @@ const SareeListing = () => {
           <FilterControls />
         </aside>
 
-        {/* Grid */}
         <div className="flex-1">
-          {filtered.length === 0 ? (
+          {isLoading ? (
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+              {[...Array(6)].map((_, i) => (
+                <div key={i} className="aspect-[3/4] bg-muted rounded-lg animate-pulse" />
+              ))}
+            </div>
+          ) : filtered.length === 0 ? (
             <div className="text-center py-20">
               <p className="text-muted-foreground font-body">No sarees found matching your filters.</p>
               <Button variant="ghost" onClick={clearFilters} className="mt-4 font-body">

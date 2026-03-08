@@ -1,5 +1,5 @@
 import { useParams, Link } from "react-router-dom";
-import { mockSarees } from "@/data/sarees";
+import { useSaree } from "@/hooks/useSarees";
 import { useCart } from "@/context/CartContext";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -9,11 +9,22 @@ import { toast } from "sonner";
 
 const SareeDetail = () => {
   const { id } = useParams();
-  const saree = mockSarees.find((s) => s.id === id);
+  const { data: saree, isLoading } = useSaree(id);
   const { addToCart } = useCart();
   const [zoomed, setZoomed] = useState(false);
   const [zoomPos, setZoomPos] = useState({ x: 50, y: 50 });
   const imgRef = useRef<HTMLDivElement>(null);
+
+  if (isLoading) {
+    return (
+      <div className="container py-20 text-center">
+        <div className="animate-pulse space-y-4 max-w-md mx-auto">
+          <div className="h-8 bg-muted rounded w-3/4 mx-auto" />
+          <div className="h-4 bg-muted rounded w-1/2 mx-auto" />
+        </div>
+      </div>
+    );
+  }
 
   if (!saree) {
     return (
@@ -49,7 +60,6 @@ const SareeDetail = () => {
       </Link>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
-        {/* Image with zoom */}
         <div
           ref={imgRef}
           className="relative overflow-hidden rounded-lg bg-cream aspect-[3/4] cursor-zoom-in shadow-elegant"
@@ -72,7 +82,6 @@ const SareeDetail = () => {
           />
         </div>
 
-        {/* Details */}
         <div className="flex flex-col gap-5">
           <div>
             <div className="flex items-center gap-2 mb-2">
@@ -108,7 +117,7 @@ const SareeDetail = () => {
             <div>
               <p className="text-xs text-muted-foreground font-body">Blouse Piece</p>
               <p className="text-sm font-body font-medium flex items-center gap-1">
-                {saree.blousePiece ? (
+                {saree.blouse_piece ? (
                   <><Check className="h-4 w-4 text-green-600" /> Included</>
                 ) : (
                   <><XIcon className="h-4 w-4 text-destructive" /> Not Included</>

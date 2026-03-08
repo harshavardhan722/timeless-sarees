@@ -2,11 +2,12 @@ import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import heroBanner from "@/assets/hero-banner.jpg";
-import { mockSarees } from "@/data/sarees";
+import { useSarees } from "@/hooks/useSarees";
 import SareeCard from "@/components/SareeCard";
 
 const Index = () => {
-  const featured = mockSarees.slice(0, 4);
+  const { data: sarees, isLoading } = useSarees();
+  const featured = (sarees || []).slice(0, 4);
 
   return (
     <main>
@@ -49,11 +50,19 @@ const Index = () => {
             Featured Sarees
           </h2>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-          {featured.map((saree) => (
-            <SareeCard key={saree.id} saree={saree} />
-          ))}
-        </div>
+        {isLoading ? (
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+            {[...Array(4)].map((_, i) => (
+              <div key={i} className="aspect-[3/4] bg-muted rounded-lg animate-pulse" />
+            ))}
+          </div>
+        ) : (
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+            {featured.map((saree) => (
+              <SareeCard key={saree.id} saree={saree} />
+            ))}
+          </div>
+        )}
         <div className="text-center mt-10">
           <Link to="/sarees">
             <Button variant="outline" className="rounded-full px-8 gap-2 font-body">
