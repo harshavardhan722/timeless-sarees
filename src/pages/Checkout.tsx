@@ -52,7 +52,7 @@ Order Summary:
 Total Amount: ₹${totalPrice.toLocaleString("en-IN")}
 Payment Method: Cash on Delivery`;
 
-    const whatsappUrl = `https://wa.me/918910081722?text=${encodeURIComponent(message)}`;
+    const whatsappUrl = `https://wa.me/918919061722?text=${encodeURIComponent(message)}`;
 
     try {
       await createOrder.mutateAsync({

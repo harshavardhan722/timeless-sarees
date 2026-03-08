@@ -29,7 +29,7 @@ const Footer = () => (
             <a href="https://www.google.com/maps/search/?api=1&query=CTM+Madanapalli+India" target="_blank" rel="noopener noreferrer" className="hover:text-primary-foreground transition-colors">India, Near Madanapalli, C.T.M.</a>
           </div>
           <a
-            href="https://wa.me/918910081722"
+            href="https://wa.me/918919061722"
             target="_blank"
             rel="noopener noreferrer"
             className="mt-3 inline-block"
