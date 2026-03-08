@@ -11,6 +11,7 @@ import SareeListing from "./pages/SareeListing";
 import SareeDetail from "./pages/SareeDetail";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
+import OrderConfirmation from "./pages/OrderConfirmation";
 import Admin from "./pages/Admin";
 import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
