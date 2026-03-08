@@ -123,9 +123,13 @@ const Admin = () => {
         <div>
           <h1 className="text-2xl md:text-3xl font-heading font-bold">Admin Panel</h1>
           <p className="text-sm text-muted-foreground font-body mt-1">
-            Manage your saree inventory
+            Manage your saree inventory · {user.email}
           </p>
         </div>
+        <div className="flex items-center gap-2">
+          <Button variant="outline" size="sm" onClick={signOut}>
+            <LogOut className="h-4 w-4 mr-1" /> Sign Out
+          </Button>
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
           <DialogTrigger asChild>
             <Button onClick={openNew} className="gap-2 rounded-full font-body">
