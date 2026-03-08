@@ -78,6 +78,9 @@ export const useDeleteSaree = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (id: string) => {
+      // Delete related order_items first to avoid foreign key constraint
+      const { error: itemsError } = await supabase.from("order_items").delete().eq("saree_id", id);
+      if (itemsError) throw itemsError;
       const { error } = await supabase.from("sarees").delete().eq("id", id);
       if (error) throw error;
     },
