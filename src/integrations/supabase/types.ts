@@ -14,7 +14,117 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      order_items: {
+        Row: {
+          id: string
+          order_id: string
+          price: number
+          quantity: number
+          saree_id: string
+        }
+        Insert: {
+          id?: string
+          order_id: string
+          price: number
+          quantity?: number
+          saree_id: string
+        }
+        Update: {
+          id?: string
+          order_id?: string
+          price?: number
+          quantity?: number
+          saree_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "order_items_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "order_items_saree_id_fkey"
+            columns: ["saree_id"]
+            isOneToOne: false
+            referencedRelation: "sarees"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      orders: {
+        Row: {
+          created_at: string
+          customer_address: string
+          customer_name: string
+          customer_phone: string
+          id: string
+          status: string
+          total_price: number
+        }
+        Insert: {
+          created_at?: string
+          customer_address: string
+          customer_name: string
+          customer_phone: string
+          id?: string
+          status?: string
+          total_price: number
+        }
+        Update: {
+          created_at?: string
+          customer_address?: string
+          customer_name?: string
+          customer_phone?: string
+          id?: string
+          status?: string
+          total_price?: number
+        }
+        Relationships: []
+      }
+      sarees: {
+        Row: {
+          blouse_piece: boolean
+          color: string
+          created_at: string
+          description: string
+          fabric: string
+          id: string
+          images: string[]
+          name: string
+          occasion: string
+          price: number
+          stock: number
+        }
+        Insert: {
+          blouse_piece?: boolean
+          color: string
+          created_at?: string
+          description?: string
+          fabric: string
+          id?: string
+          images?: string[]
+          name: string
+          occasion: string
+          price: number
+          stock?: number
+        }
+        Update: {
+          blouse_piece?: boolean
+          color?: string
+          created_at?: string
+          description?: string
+          fabric?: string
+          id?: string
+          images?: string[]
+          name?: string
+          occasion?: string
+          price?: number
+          stock?: number
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
