@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { Navigate } from "react-router-dom";
+import { useAuth } from "@/hooks/useAuth";
 import { useSarees, useCreateSaree, useUpdateSaree, useDeleteSaree, FABRICS, COLORS, OCCASIONS } from "@/hooks/useSarees";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -7,7 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Plus, Pencil, Trash2 } from "lucide-react";
+import { Plus, Pencil, Trash2, LogOut } from "lucide-react";
 import { toast } from "sonner";
 
 const emptyForm = {
@@ -22,6 +24,7 @@ const emptyForm = {
 };
 
 const Admin = () => {
+  const { user, loading: authLoading, signOut } = useAuth();
   const { data: sarees, isLoading } = useSarees();
   const createSaree = useCreateSaree();
   const updateSaree = useUpdateSaree();
@@ -30,6 +33,14 @@ const Admin = () => {
   const [form, setForm] = useState(emptyForm);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [dialogOpen, setDialogOpen] = useState(false);
+
+  if (authLoading) {
+    return <div className="flex items-center justify-center min-h-[60vh] text-muted-foreground">Loading...</div>;
+  }
+
+  if (!user) {
+    return <Navigate to="/auth" replace />;
+  }
 
   const update = (field: string, value: string | boolean) =>
     setForm((prev) => ({ ...prev, [field]: value }));
@@ -112,8 +123,13 @@ const Admin = () => {
         <div>
           <h1 className="text-2xl md:text-3xl font-heading font-bold">Admin Panel</h1>
           <p className="text-sm text-muted-foreground font-body mt-1">
-            Manage your saree inventory
+            Manage your saree inventory · {user.email}
           </p>
+        </div>
+        <div className="flex items-center gap-2">
+          <Button variant="outline" size="sm" onClick={signOut}>
+            <LogOut className="h-4 w-4 mr-1" /> Sign Out
+          </Button>
         </div>
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
           <DialogTrigger asChild>
