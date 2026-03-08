@@ -25,11 +25,11 @@ const Footer = () => (
           <h4 className="font-heading font-semibold mb-3">Contact</h4>
           <div className="flex flex-col gap-2 text-sm text-primary-foreground/70">
             <a href="mailto:punikotiharsha@gmail.com?subject=Buy%20Practical%20Sarees" className="hover:text-primary-foreground transition-colors">punikotiharsha@gmail.com</a>
-            <a href="tel:+918910081722" className="hover:text-primary-foreground transition-colors">+91 89100 81722</a>
+            <a href="tel:+918919061722" className="hover:text-primary-foreground transition-colors">+91 89190 61722</a>
             <a href="https://www.google.com/maps/search/?api=1&query=CTM+Madanapalli+India" target="_blank" rel="noopener noreferrer" className="hover:text-primary-foreground transition-colors">India, Near Madanapalli, C.T.M.</a>
           </div>
           <a
-            href="https://wa.me/918910081722"
+            href="https://wa.me/918919061722"
             target="_blank"
             rel="noopener noreferrer"
             className="mt-3 inline-block"

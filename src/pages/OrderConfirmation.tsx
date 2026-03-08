@@ -46,7 +46,7 @@ const OrderConfirmation = () => {
         </div>
 
         <p className="text-xs text-muted-foreground font-body">
-          We'll confirm your order on WhatsApp shortly. For queries, contact us at +91 89100 81722.
+          We'll confirm your order on WhatsApp shortly. For queries, contact us at +91 89190 61722.
         </p>
 
         <div className="flex flex-col gap-3 pt-2">
