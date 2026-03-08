@@ -6,6 +6,7 @@ interface OrderState {
   customerName: string;
   totalPrice: number;
   itemCount: number;
+  whatsappUrl: string;
 }
 
 const OrderConfirmation = () => {
