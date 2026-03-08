@@ -30,6 +30,30 @@ const Checkout = () => {
       return;
     }
 
+    // Build WhatsApp message
+    const orderLines = items
+      .map(
+        ({ saree, quantity }) =>
+          `Product: ${saree.name}\nQuantity: ${quantity}\nPrice: ₹${(saree.price * quantity).toLocaleString("en-IN")}`
+      )
+      .join("\n\n");
+
+    const message = `Hello Amma Sarees, I want to place an order.
+
+Customer Details:
+Name: ${form.name}
+Phone: ${form.phone}
+Address: ${form.address}
+
+Order Details:
+${orderLines}
+
+Order Summary:
+Total Amount: ₹${totalPrice.toLocaleString("en-IN")}
+Payment Method: Cash on Delivery`;
+
+    const whatsappUrl = `https://wa.me/918910081722?text=${encodeURIComponent(message)}`;
+
     try {
       await createOrder.mutateAsync({
         customer_name: form.name,
@@ -42,11 +66,16 @@ const Checkout = () => {
           price: saree.price * quantity,
         })),
       });
-      toast.success("Order placed successfully! You'll receive a confirmation shortly.");
       clearCart();
+      window.open(whatsappUrl, "_blank");
+      toast.success("Order placed! Redirecting to WhatsApp...");
       navigate("/");
     } catch {
-      toast.error("Failed to place order. Please try again.");
+      // Still open WhatsApp even if DB save fails
+      window.open(whatsappUrl, "_blank");
+      toast.success("Redirecting to WhatsApp...");
+      clearCart();
+      navigate("/");
     }
   };
 
