@@ -5,7 +5,7 @@ const Footer = () => (
     <div className="container py-12">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         <div>
-          <h3 className="text-2xl font-heading font-bold mb-3">Vastra</h3>
+          <h3 className="text-2xl font-heading font-bold mb-3">Amma</h3>
           <p className="text-primary-foreground/70 text-sm font-body leading-relaxed">
             Curating the finest handloom and designer sarees from across India.
             Every weave tells a story.
