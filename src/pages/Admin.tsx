@@ -130,6 +130,7 @@ const Admin = () => {
           <Button variant="outline" size="sm" onClick={signOut}>
             <LogOut className="h-4 w-4 mr-1" /> Sign Out
           </Button>
+        </div>
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
           <DialogTrigger asChild>
             <Button onClick={openNew} className="gap-2 rounded-full font-body">
