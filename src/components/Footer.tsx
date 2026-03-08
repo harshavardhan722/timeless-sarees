@@ -1,4 +1,6 @@
 import { Link } from "react-router-dom";
+import { MessageCircle } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const Footer = () => (
   <footer className="bg-primary text-primary-foreground mt-16">
@@ -22,10 +24,21 @@ const Footer = () => (
         <div>
           <h4 className="font-heading font-semibold mb-3">Contact</h4>
           <div className="flex flex-col gap-2 text-sm text-primary-foreground/70">
-            <p>info@ammasarees.com</p>
+            <p>punikotiharsha</p>
             <p>+91 89190 61722</p>
-            <p>Mumbai, India</p>
+            <p>India, Near Madanapalli, C.T.M.</p>
           </div>
+          <a
+            href="https://wa.me/918919061722"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-3 inline-block"
+          >
+            <Button size="sm" className="bg-[hsl(142,70%,40%)] hover:bg-[hsl(142,70%,35%)] text-primary-foreground gap-2">
+              <MessageCircle className="h-4 w-4" />
+              WhatsApp
+            </Button>
+          </a>
         </div>
       </div>
       <div className="border-t border-primary-foreground/20 mt-8 pt-6 text-center text-xs text-primary-foreground/50">
