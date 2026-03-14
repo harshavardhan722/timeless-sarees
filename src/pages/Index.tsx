@@ -17,6 +17,8 @@ const Index = () => {
           src={heroBanner}
           alt="Exquisite Indian Sarees Collection"
           className="absolute inset-0 w-full h-full object-cover"
+          fetchPriority="high"
+          decoding="async"
         />
         <div className="absolute inset-0 bg-gradient-hero" />
         <div className="relative container h-full flex flex-col justify-center">

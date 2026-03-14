@@ -49,6 +49,8 @@ export const useSaree = (id: string | undefined) => {
       return data as Saree | null;
     },
     enabled: !!id,
+    staleTime: 5 * 60 * 1000,
+    gcTime: 10 * 60 * 1000,
   });
 };
 
