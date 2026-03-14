@@ -30,6 +30,8 @@ export const useSarees = () => {
       if (error) throw error;
       return data as Saree[];
     },
+    staleTime: 5 * 60 * 1000, // 5 minutes - avoid refetching on every mount
+    gcTime: 10 * 60 * 1000, // 10 minutes garbage collection
   });
 };
 
@@ -47,6 +49,8 @@ export const useSaree = (id: string | undefined) => {
       return data as Saree | null;
     },
     enabled: !!id,
+    staleTime: 5 * 60 * 1000,
+    gcTime: 10 * 60 * 1000,
   });
 };
 

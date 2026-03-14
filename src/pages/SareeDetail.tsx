@@ -71,6 +71,8 @@ const SareeDetail = () => {
             src={saree.images[0]}
             alt={saree.name}
             className="w-full h-full object-cover transition-transform duration-300"
+            loading="lazy"
+            decoding="async"
             style={
               zoomed
                 ? {
